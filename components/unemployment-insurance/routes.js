@@ -174,11 +174,11 @@ const sup = [
       const { workRequirements, outOfWorkReason } = state;
       if (outOfWorkReason === "furlough") {
         return workRequirements.length === 3
-          ? "/weekly-benefits-allowance"
+          ? "/weekly-benefits-amount"
           : "/not-eligible-ui";
       }
       return workRequirements.length === 4
-        ? "/weekly-benefits-allowance"
+        ? "/weekly-benefits-amount"
         : "/not-eligible-ui";
     },
     options: [
@@ -228,7 +228,7 @@ const sup = [
       "The Alternate Base Period is just like the Standard Base Period, except you do not skip the most previously completed quarter. ",
       "Using the previous example, if the month is April 2020, the Alternate Base Period would include the previous 4 quarters to that (Q1 2020, Q2 - Q4 2019)."
     ],
-    next: "/income-calculator-q1"
+    next: "/income-calculator-1"
   },
   {
     route: "/income-calculator-1",

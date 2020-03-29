@@ -112,10 +112,6 @@ const UIQualification = () => {
       {qualified && (
         <React.Fragment>
           <Text>You're qualified 😎</Text>
-          <TextWithBold
-            text="Highest Quarterly Earnings:"
-            bold={`$${earnings}`}
-          />
           <TextWithBold text="COVID-19 Pandemic Assistance:" bold="$600" />
           <TextWithBold
             text="Estimated Weekly Assistance Until 7-31-20:"
