@@ -1,13 +1,14 @@
 import React, { useImperativeHandle, useEffect } from "react";
 import Calculator from "../Calculator";
-import { NEXT_ROUTE, quarters } from "../constants";
 import {
-  useUnemploymentInsuranceStateContext,
-  useUnemploymentInsuranceDispatchContext
-} from "../context";
+  NEXT_ROUTE,
+  quarters,
+  RESET_FOR_ALTERNATIVE_PERIOD
+} from "../constants";
+import { useUnemploymentInsuranceDispatchContext } from "../context";
+import { findNextRoute } from "../utils/findNextRoute";
 
 const AlternativePeriod = () => {
-  const { qualified, route } = useUnemploymentInsuranceStateContext();
   const dispatch = useUnemploymentInsuranceDispatchContext();
   const alternativeQuarters = quarters.map(q => {
     if (q.key === 1) {
@@ -19,12 +20,17 @@ const AlternativePeriod = () => {
   });
 
   useEffect(() => {
-    const { routes } = route;
+    dispatch({
+      type: RESET_FOR_ALTERNATIVE_PERIOD
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch({
       type: NEXT_ROUTE,
-      payload: routes.find(route => route.route === "/ui-qualification")
+      payload: findNextRoute("/ui-qualification")
     });
-  }, [route]);
+  }, [dispatch]);
   return <Calculator quarters={alternativeQuarters} />;
 };
 

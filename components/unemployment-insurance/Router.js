@@ -26,32 +26,68 @@ const Router = () => {
   // const nextRoute = useCalculateNextRoute();
 
   try {
-    console.log(Components);
-    console.log(route);
     const Component = Components[route.component];
     const handleNextClick = () => dispatch({ type: NEXT });
+    const disableNextButton = Boolean(route.changeIsRequired && !updated);
+    const { terminal } = route;
     return (
       <Flex>
-        <Card header={route.description}>
-          <Box marginTop={3} sx={{ width: "100%" }}>
+        <Card header={route.title}>
+          <Box
+            marginTop={3}
+            bg="layoutBackground"
+            sx={{
+              width: "75%",
+              border: "1px solid #e3e3e5",
+              borderRadius: "12px"
+            }}
+          >
             <Flex
               justifyContent="center"
               alignItems="center"
               flexDirection="column"
+              sx={{
+                height: "100%"
+              }}
             >
-              <Component />
               <Box
-                margin={4}
-                // sx={{ justifySelf: "flex-end", alignSelf: "flex-end" }}
+                flex="1"
+                marginTop={4}
+                width={1}
+                marginBottom={terminal ? 4 : undefined}
               >
-                <Button
-                  sx={{ ":focus": { outline: "none" } }}
-                  onClick={handleNextClick}
-                  disabled={Boolean(route.changeIsRequired && !updated)}
-                >
-                  Next
-                </Button>
+                <Component route={route} />
               </Box>
+              {!terminal && (
+                <Box
+                  width={[1 / 6]}
+                  height={60}
+                  flex="1"
+                  marginBottom={5}
+                  marginTop={5}
+                >
+                  <Flex alignItems="flex-end" sx={{ height: "100%" }}>
+                    <Button
+                      sx={{
+                        ":focus": { outline: "none" },
+                        ":hover": { backgroundColor: "#0077ed" },
+                        backgroundColor: "#0071e3",
+                        opacity: disableNextButton ? "0.3" : "1",
+                        borderRadius: "5px",
+                        cursor: "pointer"
+                      }}
+                      fontSize={[2, 2, 3]}
+                      onClick={handleNextClick}
+                      disabled={disableNextButton}
+                      height={50}
+                      width={1}
+                      flex="1"
+                    >
+                      Next
+                    </Button>
+                  </Flex>
+                </Box>
+              )}
             </Flex>
           </Box>
         </Card>

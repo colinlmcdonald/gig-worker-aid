@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Flex } from "rebass";
 import ButtonSelection from "../../ButtonSelection";
 import {
   useUnemploymentInsuranceDispatchContext,
@@ -37,7 +38,11 @@ const SelectAid = () => {
       selected: aid === "pte"
     }
   ];
-  return <ButtonSelection buttons={buttons} />;
+  return (
+    <Flex flexDirection="column" justifyContent="center" alignItems="center">
+      <ButtonSelection buttons={buttons} />
+    </Flex>
+  );
 };
 
 export default SelectAid;

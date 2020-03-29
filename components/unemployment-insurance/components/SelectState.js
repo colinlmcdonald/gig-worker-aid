@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Label, Select } from "@rebass/forms";
+import { Box, Flex } from "rebass";
 import { UPDATE_STATE } from "../constants";
 import { useUnemploymentInsuranceDispatchContext } from "../context";
 
@@ -17,16 +18,18 @@ const StateSelect = () => {
     dispatch({ type: UPDATE_STATE, payload: { state: "California" } });
   }, [dispatch]);
   return (
-    <div style={{ width: "280px" }}>
-      <Label htmlFor="state">State</Label>
-      <Select id="state" name="state" onChange={handleClick}>
-        {states.map(state => (
-          <option key={state.code} name={state}>
-            {state.name}
-          </option>
-        ))}
-      </Select>
-    </div>
+    <Flex justifyContent="center" alignItems="center">
+      <Box width={1 / 2}>
+        <Label htmlFor="state">State</Label>
+        <Select id="state" name="state" onChange={handleClick} bg="background">
+          {states.map(state => (
+            <option key={state.code} name={state}>
+              {state.name}
+            </option>
+          ))}
+        </Select>
+      </Box>
+    </Flex>
   );
 };
 export default StateSelect;

@@ -1,15 +1,22 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { Box, Flex, Heading } from "rebass";
 import { Input, Label } from "@rebass/forms";
-import { useUnemploymentInsuranceDispatchContext } from "./context";
-import { UPDATE_INCOME_BY_MONTH } from "./constants";
+import {
+  useUnemploymentInsuranceDispatchContext,
+  useUnemploymentInsuranceStateContext
+} from "./context";
+import {
+  UPDATE_INCOME_BY_MONTH,
+  UPDATE_STATE,
+  INVALIDATE_UPDATE
+} from "./constants";
 
 const Quarter = ({ name, months, year }) => (
   <React.Fragment>
     <Box m={2}>
       <Heading fontSize={[2]} color="text">
         {name} - {year}
-        <Months months={months} />
+        <Months months={months} year={year} />
       </Heading>
     </Box>
   </React.Fragment>
@@ -21,36 +28,63 @@ const Quarters = ({ quarters }) => {
   const columnTwo = [q3, q4];
   return (
     <React.Fragment>
-      <Flex>
+      <Flex justifyContent="center" alignItems="center">
         {columnOne.map(({ name, months, year }) => (
-          <Quarter name={name} months={months} year={year} />
+          <Quarter name={name} months={months} year={year} key={name} />
         ))}
       </Flex>
-      <Flex>
+      <Flex justifyContent="center" alignItems="center">
         {columnTwo.map(({ name, months, year }) => (
-          <Quarter name={name} months={months} year={year} />
+          <Quarter name={name} months={months} year={year} key={name} />
         ))}
       </Flex>
     </React.Fragment>
   );
 };
 
-const Months = ({ months }) => {
+const Months = ({ months, year }) => {
   const dispatch = useUnemploymentInsuranceDispatchContext();
+  const {
+    incomeByYearAndMonth,
+    updated
+  } = useUnemploymentInsuranceStateContext();
+  useEffect(() => {
+    const isFilledOut = Object.keys(incomeByYearAndMonth).reduce(
+      (acc, year) => {
+        const months = incomeByYearAndMonth[year];
+        const allMonthsFilledOut = Object.values(months).every(
+          mth => mth.length
+        );
+        return acc + (allMonthsFilledOut ? Object.values(months).length : 0);
+      },
+      0
+    );
+    if (isFilledOut === 12) {
+      dispatch({ type: UPDATE_STATE, payload: {} }); // just set updated: true
+    } else if (updated) {
+      dispatch({ type: INVALIDATE_UPDATE });
+    }
+  }, [incomeByYearAndMonth]);
   return months.map(({ key, name }) => (
-    <React.Fragment>
+    <React.Fragment key={key}>
       <Label htmlFor={key} fontSize={1}>
         {name}
       </Label>
       <Input
+        bg="background"
         id={key}
         name={key}
-        onChange={e =>
+        defaultValue={
+          incomeByYearAndMonth[year] && incomeByYearAndMonth[year][key]
+            ? incomeByYearAndMonth[year][key]
+            : undefined
+        }
+        onChange={e => {
           dispatch({
             type: UPDATE_INCOME_BY_MONTH,
-            payload: { [key]: e.target.value }
-          })
-        }
+            payload: { [year]: { [key]: e.target.value } }
+          });
+        }}
       ></Input>
     </React.Fragment>
   ));
@@ -69,15 +103,16 @@ const Calculator = ({ quarters }) => {
       }),
     [quarters]
   );
+
   return (
-    <Box sx={{ width: "400px" }}>
+    <Flex flexDirection="column" justifyContent="center" alignItems="center">
       <Heading fontSize={[1, 1, 2]} color="text">
         Enter your income for each of the months listed:
       </Heading>
-      <Box p={2} fontSize={3} width={1} color="text" bg="background">
+      <Box p={2} fontSize={3} width={1} color="text" bg="layoutBackground">
         <Quarters quarters={orderlyQuarters} />
       </Box>
-    </Box>
+    </Flex>
   );
 };
 

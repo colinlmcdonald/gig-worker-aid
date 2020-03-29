@@ -3,8 +3,8 @@ import { ThemeProvider } from "emotion-theming";
 import preset from "@rebass/preset";
 
 const App = ({ children }) => {
-  console.log("sup preset", preset);
   preset.colors.primary = "rgb(43, 107, 216)";
+  preset.colors.layoutBackground = "#f5f5f7";
   return <ThemeProvider theme={preset}>{children}</ThemeProvider>;
 };
 

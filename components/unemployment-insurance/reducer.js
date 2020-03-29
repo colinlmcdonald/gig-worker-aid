@@ -1,15 +1,19 @@
+import { mergeDeepRight } from "ramda";
 import {
   NEXT,
   UPDATE_STATE,
   NEXT_ROUTE,
-  UPDATE_INCOME_BY_MONTH
+  UPDATE_INCOME_BY_MONTH,
+  INVALIDATE_UPDATE,
+  RESET_FOR_ALTERNATIVE_PERIOD
 } from "./constants";
 import routes from "./routes";
 
 export const initialState = {
   route: routes.slice(0, 1)[0],
-  routes: routes.slice(1, routes.length),
-  previousRoutes: []
+  nextRoute: {},
+  previousRoutes: [],
+  incomeByYearAndMonth: {}
 };
 
 export default function reducer(state, action) {
@@ -22,28 +26,57 @@ export default function reducer(state, action) {
         ...payload,
         updated: true
       };
+
     case NEXT:
       return {
         ...state,
         updated: false,
-        route: state.routes.slice(0, 1)[0],
-        routes: state.routes.slice(1, state.routes.length),
+        route: state.nextRoute,
         previousRoutes: [...state.previousRoutes, state.route]
       };
 
     case NEXT_ROUTE:
       return {
         ...state,
-        routes: [payload, ...state.routes]
+        nextRoute: payload
       };
 
     case UPDATE_INCOME_BY_MONTH:
       return {
         ...state,
-        incomeByMonth: {
-          ...state.incomeByMonth,
-          ...payload
-        }
+        incomeByYearAndMonth: mergeDeepRight(
+          state.incomeByYearAndMonth,
+          payload
+        )
+      };
+
+    case INVALIDATE_UPDATE:
+      return {
+        ...state,
+        updated: false
+      };
+
+    case RESET_FOR_ALTERNATIVE_PERIOD:
+      const removeFirstQuarter = Object.keys(state.incomeByYearAndMonth).reduce(
+        (acc, year) => {
+          return {
+            [year]: Object.entries(state.incomeByYearAndMonth[year]).reduce(
+              (acc, [key, value]) => {
+                console.log(key, value);
+                if (key !== "jan" && key !== "feb" && key !== "mar") {
+                  acc[key] = value;
+                }
+                return acc;
+              },
+              {}
+            )
+          };
+        },
+        {}
+      );
+      return {
+        ...state,
+        incomeByYearAndMonth: removeFirstQuarter
       };
   }
 }

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import App from "../components/App";
 import reducer, {
   initialState
@@ -8,6 +8,11 @@ import {
   UnemploymentInsuranceStateContext
 } from "../components/unemployment-insurance/context";
 import Router from "../components/unemployment-insurance/Router";
+import {
+  NEXT,
+  NEXT_ROUTE
+} from "../components/unemployment-insurance/constants";
+import { findNextRoute } from "../components/unemployment-insurance/utils/findNextRoute";
 
 /* 
 1. Can you expect to qualify?
@@ -32,8 +37,19 @@ import Router from "../components/unemployment-insurance/Router";
 // have a mapping of states to component trees, i.e. /select-state render(</SelectState >)
 // each component checks the useUnemploymentInsuranceState()
 
-const UnemploymentInsurance = () => {
+const UnemploymentInsurance = ({
+  url: {
+    query: { href }
+  }
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    if (href) {
+      const nextRoute = findNextRoute(`/${href}`);
+      dispatch({ type: NEXT_ROUTE, payload: nextRoute });
+      dispatch({ type: NEXT });
+    }
+  }, [href]);
   return (
     <App>
       <UnemploymentInsuranceDispatchContext.Provider value={dispatch}>
