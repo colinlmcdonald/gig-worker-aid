@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Box, Text, Flex } from "rebass";
+import { Box, Text, Link } from "rebass";
 import {
   useUnemploymentInsuranceStateContext,
   useUnemploymentInsuranceDispatchContext
@@ -125,6 +125,16 @@ const UIQualification = () => {
             text="Estimated Weekly Assistance After 7-31-20:"
             bold={`$${weeklyBenefit}`}
           />
+          <Text marginTop={3}>
+            To learn more and get instructions on how to sign up, check out our:{" "}
+          </Text>
+          <Link
+            href="https://docs.google.com/document/d/1k1BQzIyqxyTOWLuVeLtg1YKOzHzogGSyNEep5eW6dps/edit"
+            target="_blank"
+            marginTop={3}
+          >
+            Unemployment Insurance Guide
+          </Link>
         </React.Fragment>
       )}
       {!qualified && (
