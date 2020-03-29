@@ -116,7 +116,7 @@ const sup = [
       {
         title: "No",
         dispatchValue: "fault",
-        next: ""
+        next: "/not-eligible-ui"
       },
       {
         title: "I'm not sure",
@@ -179,11 +179,11 @@ const sup = [
       const { workRequirements, outOfWorkReason } = state;
       if (outOfWorkReason === "furlough") {
         return workRequirements.length === 3
-          ? "/income-requirements"
+          ? "/income-calculator"
           : "/not-eligible-ui";
       }
       return workRequirements.length === 4
-        ? "/income-requirements"
+        ? "/income-calculator"
         : "/not-eligible-ui";
     },
     options: [
