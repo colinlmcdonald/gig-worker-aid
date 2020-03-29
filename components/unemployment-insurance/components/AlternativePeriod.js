@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useEffect } from "react";
+import React, { useMemo, useEffect } from "react";
 import Calculator from "../Calculator";
 import {
   NEXT_ROUTE,
@@ -8,7 +8,7 @@ import {
 import { useUnemploymentInsuranceDispatchContext } from "../context";
 import { findNextRoute } from "../utils/findNextRoute";
 
-const AlternativePeriod = () => {
+const AlternativePeriod = ({ route: { props, next } }) => {
   const dispatch = useUnemploymentInsuranceDispatchContext();
   const alternativeQuarters = quarters.map(q => {
     if (q.key === 1) {
@@ -18,6 +18,18 @@ const AlternativePeriod = () => {
     }
     return q;
   });
+  const orderlyQuarters = useMemo(
+    () =>
+      alternativeQuarters.sort((a, b) => {
+        if (a.year > b.year) {
+          return 1;
+        } else if (a.year > b.year) {
+          return -1;
+        }
+        return 0;
+      }),
+    [alternativeQuarters]
+  );
 
   useEffect(() => {
     dispatch({
@@ -26,12 +38,10 @@ const AlternativePeriod = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch({
-      type: NEXT_ROUTE,
-      payload: findNextRoute("/ui-qualification")
-    });
-  }, [dispatch]);
-  return <Calculator quarters={alternativeQuarters} />;
+    const nextRoute = findNextRoute(next);
+    dispatch({ type: NEXT_ROUTE, payload: nextRoute });
+  }, [dispatch, next]);
+  return <Calculator quarter={orderlyQuarters[Number(props.next) - 1]} />;
 };
 
 export default AlternativePeriod;

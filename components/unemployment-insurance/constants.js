@@ -4,6 +4,8 @@ export const NEXT_ROUTE = "NEXT_ROUTE";
 export const UPDATE_INCOME_BY_MONTH = "UPDATE_INCOME_BY_MONTH";
 export const INVALIDATE_UPDATE = "INVALIDATE_UPDATE";
 export const RESET_FOR_ALTERNATIVE_PERIOD = "RESET_FOR_ALTERNATIVE_PERIOD";
+export const GO_BACK = "GO_BACK";
+export const QUALIFIED = "QUALIFIED";
 
 export const quarters = [
   {

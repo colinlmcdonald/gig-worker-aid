@@ -68,7 +68,7 @@ const ButtonSelection = ({ route }) => {
   return (
     <Flex flexDirection="column" justifyContent="center" alignItems="center">
       {description && (
-        <Text p={3} fontSize={[1, 2, 3]}>
+        <Text p={3} fontSize={[2, 2, 3]}>
           {description}
         </Text>
       )}
@@ -78,7 +78,12 @@ const ButtonSelection = ({ route }) => {
             ? selectedValue.find(v => v === dispatchValue)
             : selectedValue === dispatchValue;
           return (
-            <Box key={title} marginLeft={2} width={1 / 2} marginTop={2}>
+            <Box
+              key={title}
+              marginLeft={2}
+              width={[4 / 5, 2 / 3, 1 / 2]}
+              marginTop={2}
+            >
               <Button
                 variant={selected ? "primary" : "outline"}
                 width={1}

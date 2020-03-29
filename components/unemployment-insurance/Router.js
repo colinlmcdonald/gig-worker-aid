@@ -1,12 +1,14 @@
-import { Box, Button, Flex } from "rebass";
+import { useMemo } from "react";
+import { Box, Button, Flex, Link } from "rebass";
 import Card from "../Card";
 import Sidebar from "../Sidebar";
 import {
   useUnemploymentInsuranceStateContext,
   useUnemploymentInsuranceDispatchContext
 } from "./context";
-import { NEXT } from "./constants";
+import { NEXT, NEXT_ROUTE, GO_BACK } from "./constants";
 import * as Components from "./components";
+import { findNextRoute } from "./utils/findNextRoute";
 
 // const useCalculateNextRoute = () => {
 //   const { routes } = useUnemploymentInsuranceStateContext();
@@ -21,7 +23,29 @@ import * as Components from "./components";
 
 const Router = () => {
   const dispatch = useUnemploymentInsuranceDispatchContext();
-  const { route, updated } = useUnemploymentInsuranceStateContext();
+  const state = useUnemploymentInsuranceStateContext();
+  const { route, updated, previousRoutes } = state;
+
+  const handleGoBack = () => {
+    const copy = previousRoutes.slice();
+    const previousRoute = copy.pop();
+    dispatch({ type: NEXT_ROUTE, payload: previousRoute });
+    dispatch({ type: GO_BACK, payload: copy });
+  };
+
+  const handleCancel = () => {
+    const home = findNextRoute("/");
+    dispatch({ type: NEXT_ROUTE, payload: home });
+    dispatch({ type: NEXT });
+  };
+
+  const endOfTheLine = useMemo(() => {
+    if (typeof route.terminal === "function") {
+      return route.terminal(state);
+    }
+    return route.terminal;
+  }, [state.qualifiedForUI, route]);
+
   // const futureRoutes = useCalculateFutureRoutes();
   // const nextRoute = useCalculateNextRoute();
 
@@ -29,19 +53,52 @@ const Router = () => {
     const Component = Components[route.component];
     const handleNextClick = () => dispatch({ type: NEXT });
     const disableNextButton = Boolean(route.changeIsRequired && !updated);
-    const { terminal } = route;
     return (
       <Flex>
         <Card header={route.title}>
           <Box
             marginTop={3}
             bg="layoutBackground"
+            width={[9 / 10, 3 / 4, 3 / 4]}
             sx={{
               width: "75%",
               border: "1px solid #e3e3e5",
               borderRadius: "12px"
             }}
           >
+            {route.route !== "/" && (
+              <Flex justifyContent="space-between">
+                <Link
+                  fontSize={3}
+                  marginLeft={3}
+                  marginTop={3}
+                  onClick={handleGoBack}
+                  sx={{
+                    cursor: "pointer"
+                  }}
+                >
+                  <Box
+                    marginRight={1}
+                    sx={{ display: "inline-block" }}
+                    fontSize={3}
+                  >
+                    {"\u27EA"}
+                  </Box>{" "}
+                  Back
+                </Link>
+                <Link
+                  fontSize={3}
+                  marginTop={3}
+                  marginRight={3}
+                  onClick={handleCancel}
+                  sx={{
+                    cursor: "pointer"
+                  }}
+                >
+                  Cancel
+                </Link>
+              </Flex>
+            )}
             <Flex
               justifyContent="center"
               alignItems="center"
@@ -54,13 +111,13 @@ const Router = () => {
                 flex="1"
                 marginTop={4}
                 width={1}
-                marginBottom={terminal ? 4 : undefined}
+                marginBottom={endOfTheLine ? 4 : undefined}
               >
                 <Component route={route} />
               </Box>
-              {!terminal && (
+              {!endOfTheLine && (
                 <Box
-                  width={[1 / 6]}
+                  width={[1 / 3, 1 / 4, 1 / 6]}
                   height={60}
                   flex="1"
                   marginBottom={5}

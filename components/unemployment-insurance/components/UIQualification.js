@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { Box, Text } from "rebass";
+import { Box, Text, Flex } from "rebass";
 import {
   useUnemploymentInsuranceStateContext,
   useUnemploymentInsuranceDispatchContext
 } from "../context";
 import { isQualified, highestQuarterlyEarnings } from "../utils/isQualified";
-import { NEXT_ROUTE } from "../constants";
+import { NEXT_ROUTE, QUALIFIED } from "../constants";
 import { calculateWeeklyBenefits } from "../utils/calculateWeeklyBenefits";
 import { findNextRoute } from "../utils/findNextRoute";
 
@@ -15,6 +15,13 @@ const monthsToQuartersHash = [
   "jul,aug,sep",
   "oct,nov,dec"
 ];
+
+const TextWithBold = ({ text, bold }) => (
+  <Text>
+    {text}{" "}
+    <Text sx={{ display: "inline-block" }} fontWeight="bold">{` ${bold}`}</Text>
+  </Text>
+);
 
 const reduceMonthsToQuarters = incomeByMonth => {
   return Object.entries(incomeByMonth).reduce(
@@ -67,6 +74,12 @@ const UIQualification = () => {
       return calculateWeeklyBenefits(earnings, "california"); // TODO: Check state
     }
   }, [earnings, qualified]);
+
+  useEffect(() => {
+    if (qualified) {
+      dispatch({ type: QUALIFIED });
+    }
+  }, [qualified]);
   const previousRouteWasAlternativePeriod = useMemo(() => {
     const previousRoutesCopy = previousRoutes.slice();
     const previousRoute = previousRoutesCopy.pop();
@@ -82,25 +95,36 @@ const UIQualification = () => {
     } else if (!qualified) {
       dispatch({
         type: NEXT_ROUTE,
-        payload: findNextRoute("/alternative-period")
+        payload: findNextRoute("/alternative-income-calculator-1")
       });
+    } else {
+      // TODO: send to guide
     }
   }, [qualified, route, previousRouteWasAlternativePeriod]);
 
   return (
-    <Box>
+    <Box
+      fontSize={4}
+      margin={3}
+      marginLeft={[4, 4, 5]}
+      sx={{ textAlign: "left" }}
+    >
       {qualified && (
         <React.Fragment>
-          <Text>Are qualififed!</Text>
-          <Text>Highest Quarterly Earnings: {earnings}</Text>
-          <Text>COVID-19 Pandemic Assistance: $600</Text>
-          <Text>
-            Estimated Weekly Assistance Until July 31, 2020:{" "}
-            {Number(weeklyBenefit) + 600}
-          </Text>
-          <Text>
-            Estimated Weekly Benefit After July 31, 2020: {weeklyBenefit}
-          </Text>
+          <Text>You're qualified 😎</Text>
+          <TextWithBold
+            text="Highest Quarterly Earnings:"
+            bold={`$${earnings}`}
+          />
+          <TextWithBold text="COVID-19 Pandemic Assistance:" bold="$600" />
+          <TextWithBold
+            text="Estimated Weekly Assistance Until 7-31-20:"
+            bold={`$${Number(weeklyBenefit) + 600}`}
+          />
+          <TextWithBold
+            text="Estimated Weekly Assistance After 7-31-20:"
+            bold={`$${weeklyBenefit}`}
+          />
         </React.Fragment>
       )}
       {!qualified && (
@@ -108,10 +132,10 @@ const UIQualification = () => {
           <Text>
             {previousRouteWasAlternativePeriod
               ? "Ah, sorry! We're not able to determine if you are eligible for Unemployment Insurance based on the information provided. Check out more here!"
-              : "Your earnings were not high enough, so you might not qualify using your Base Period."}
+              : "Sorry, you are not eligible for the Standard Base Period."}
           </Text>
           {!previousRouteWasAlternativePeriod && (
-            <Text>Let's try using the Alternate Period.</Text>
+            <Text marginTop={3}>Let's try using the Alternate Period!</Text>
           )}
         </React.Fragment>
       )}

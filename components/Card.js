@@ -13,7 +13,7 @@ const Card = ({ children, header }) => {
         alignItems="center"
         flexDirection={"column"}
       >
-        <Heading fontSize={[1, 2, 3]} color="text">
+        <Heading fontSize={[3, 3, 4]} color="text">
           {header}
         </Heading>
         {children}

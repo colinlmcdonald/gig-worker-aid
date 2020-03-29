@@ -5,7 +5,9 @@ import {
   NEXT_ROUTE,
   UPDATE_INCOME_BY_MONTH,
   INVALIDATE_UPDATE,
-  RESET_FOR_ALTERNATIVE_PERIOD
+  RESET_FOR_ALTERNATIVE_PERIOD,
+  GO_BACK,
+  QUALIFIED
 } from "./constants";
 import routes from "./routes";
 
@@ -18,7 +20,7 @@ export const initialState = {
 
 export default function reducer(state, action) {
   const { type, payload } = action;
-  console.log(type, payload);
+  console.info(type, payload);
   switch (type) {
     case UPDATE_STATE:
       return {
@@ -41,6 +43,14 @@ export default function reducer(state, action) {
         nextRoute: payload
       };
 
+    case GO_BACK:
+      return {
+        ...state,
+        route: state.nextRoute,
+        previousRoutes: payload,
+        updated: true
+      };
+
     case UPDATE_INCOME_BY_MONTH:
       return {
         ...state,
@@ -56,13 +66,18 @@ export default function reducer(state, action) {
         updated: false
       };
 
+    case QUALIFIED:
+      return {
+        ...state,
+        qualifiedForUI: true
+      };
+
     case RESET_FOR_ALTERNATIVE_PERIOD:
       const removeFirstQuarter = Object.keys(state.incomeByYearAndMonth).reduce(
         (acc, year) => {
           return {
             [year]: Object.entries(state.incomeByYearAndMonth[year]).reduce(
               (acc, [key, value]) => {
-                console.log(key, value);
                 if (key !== "jan" && key !== "feb" && key !== "mar") {
                   acc[key] = value;
                 }
