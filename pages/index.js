@@ -1,188 +1,212 @@
-import Head from 'next/head'
+import Head from "next/head";
+import { Text, Heading, Flex, Box, Button, Link } from "rebass";
+import App from "../components/App";
+import IconGirl from "../assets/form-girl.svg";
+import Paper from "../assets/paper.svg";
+import Mento from "../assets/mentoo-logo.svg";
 
 const Home = () => (
-  <div className="container">
+  <Box minHeight="100vh">
     <Head>
-      <title>Create Next App</title>
+      <title>COVID-19 CA Benefits Tool</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
-
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
-
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
+    <App>
+      <Box mx={[4, 4, 5]} marginTop={[4, 2, 1]} marginBottom={5}>
+        <Flex
+          flexDirection="column"
+          alignItems="flex-start"
+          justifyContent="flex-start"
+          flexWrap="wrap"
         >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
-
-        <a
-          href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with ZEIT Now.
-          </p>
-        </a>
-      </div>
-    </main>
-
-    <footer>
-      <a
-        href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
-      </a>
-    </footer>
-
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer img {
-        margin-left: 0.5rem;
-      }
-
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-
-      .title,
-      .description {
-        text-align: center;
-      }
-
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
-        }
-      }
-    `}</style>
+          <Box fontSize={[2, 3, 4]}>
+            <Flex justifyContent="space-between">
+              <Box width={[1, 1 / 2, 1 / 2]}>
+                <Box width={[1, 1, 3 / 4]} sx={{ height: "100%" }}>
+                  <Flex
+                    flexDirection="column"
+                    sx={{ height: "100%" }}
+                    justifyContent="center"
+                  >
+                    <Heading fontSize={[4, 5, 6]}>COVID-19</Heading>
+                    <Heading fontSize={[5, 5, 6]}>
+                      California Benefits Tool
+                    </Heading>
+                    <Text marginTop={3}>
+                      Use this tool to learn which benefits you qualify for if
+                      you're impacted by COVID-19.
+                    </Text>
+                    <Box marginTop={4} width={[3 / 7]}>
+                      <Link href="covid-quiz">
+                        <Button
+                          height={50}
+                          sx={{ borderRadius: "0px", cursor: "pointer" }}
+                        >
+                          Take the Quiz
+                        </Button>
+                      </Link>
+                    </Box>
+                  </Flex>
+                </Box>
+              </Box>
+              <Box width={[1 / 2]} flex="1" className="icon-girl-container">
+                <Flex justifyContent="center">
+                  <Box width={3 / 4}>
+                    <IconGirl className="icon-girl" />
+                  </Box>
+                </Flex>
+              </Box>
+            </Flex>
+            <Box marginTop={[3, 4, 5]} mx={[0, 2, 3]} fontSize={[2, 2, 3]}>
+              <Flex justifyContent="space-between" flexWrap="wrap" p={1}>
+                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
+                  <Box width={[1, 6 / 7, 4 / 5]}>
+                    <Flex justifyContent="space-between" alignItems="center">
+                      <Paper
+                        flex="1"
+                        height="75px"
+                        width="75px"
+                        style={{ alignSelf: "flex-start" }}
+                      />
+                      <Flex marginLeft={3} flex="1" flexDirection="column ">
+                        <Text flex="1" fontWeight="bold">
+                          Discover your benefits
+                        </Text>
+                        <Text flex="1">
+                          Learn if you're eligible for unemployment, paid family
+                          leave, disability, or pandemic assistance.
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                </Box>
+                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
+                  <Box width={[1, 6 / 7, 3 / 4]}>
+                    <Flex justifyContent="space-between" alignItems="center">
+                      <Paper
+                        flex="1"
+                        height="75px"
+                        width="75px"
+                        style={{ alignSelf: "flex-start" }}
+                      />
+                      <Flex marginLeft={3} flex="1" flexDirection="column ">
+                        <Text flex="1" fontWeight="bold">
+                          Start your application
+                        </Text>
+                        <Text flex="1">
+                          Quickly complete your applications with our
+                          step-by-step guides.
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                </Box>
+                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
+                  <Box width={[1, 6 / 7, 3 / 4]}>
+                    <Flex justifyContent="space-between">
+                      <Paper
+                        flex="1"
+                        height="75px"
+                        width="75px"
+                        style={{ alignSelf: "flex-start" }}
+                      />
+                      <Flex marginLeft={3} flex="1" flexDirection="column ">
+                        <Text fontWeight="bold">Learn More</Text>
+                        <Text>
+                          For more info from the CA EDD, please click{" "}
+                          <Link
+                            href="https://www.edd.ca.gov/about_edd/coronavirus-2019.htm"
+                            target="_blank"
+                          >
+                            here
+                          </Link>
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Box>
+                </Box>
+              </Flex>
+            </Box>
+            <Box marginTop={5}>
+              <Box
+                sx={{
+                  borderTop: "1px solid rgba(0, 0, 0, 0.3)",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.3)"
+                }}
+                py={5}
+              >
+                <Flex
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Box width={[1, 3 / 4, 1 / 2]} sx={{ textAlign: "center" }}>
+                    <Text fontWeight="bold" marginBottom={3}>
+                      Our Commitment to Privacy
+                    </Text>
+                    <Text>Your privacy is important.</Text>
+                    <Text>
+                      We are not collecting your answers or any personally
+                      identifiable infomration about you with this tool.
+                    </Text>
+                  </Box>
+                </Flex>
+              </Box>
+            </Box>
+            <Box>
+              <Box
+                sx={{
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.3)"
+                }}
+                py={5}
+              >
+                <Flex
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Box width={[1, 3 / 4, 1 / 2]} sx={{ textAlign: "center" }}>
+                    <Text fontWeight="bold">Developed By</Text>
+                    <Mento
+                      height="85px"
+                      width="280px"
+                      style={{ transform: "translate(0px, -15px) scale(0.75)" }}
+                    />
+                    <Text>
+                      This tool was created by Mento, a career support platform,
+                      that's working to help people manage their job transitions
+                      and their careers.
+                    </Text>
+                  </Box>
+                </Flex>
+              </Box>
+            </Box>
+          </Box>
+          <Flex justifyContent="center">
+            <Box marginTop={5} width={[1, 3 / 4, 3 / 4]} fontSize={[2, 3]}>
+              <footer>
+                <Text sx={{ fontStyle: "italic", textAlign: "center" }}>
+                  This guide reflects our knowledge, beliefs, and suggestions as
+                  of March 29, 2020, and should not be considered a replacement
+                  for applicable laws, orders, regulations, policies, plans or
+                  best practices (collectively, "Primary Materials"). Make sure
+                  to refer to Primary Materials applicable to your personal
+                  situation and consult with your counsel, benefit advisors,
+                  financial advisors, and employer, as applicable, before making
+                  decisions relating to your employment and healthcare. We do
+                  everything we can to stay up to date, but we in no way make
+                  any representations or warranties as to the accuracy of the
+                  material contained herein, and, as such, you should not rely
+                  on it. Lastly, nothing contained herein should be construed as
+                  creating an attorney-client or other contractual relationship.
+                </Text>
+              </footer>
+            </Box>
+          </Flex>
+        </Flex>
+      </Box>
+    </App>
 
     <style jsx global>{`
       html,
@@ -196,8 +220,20 @@ const Home = () => (
       * {
         box-sizing: border-box;
       }
-    `}</style>
-  </div>
-)
+      @media screen and (max-width: 1024px) {
+        .icon-girl-container {
+          display: none;
+        }
+      }
 
-export default Home
+      @media screen and (max-width: 1424px) {
+        .icon-girl {
+          transform: scale(0.8);
+        }
+      }
+    `}</style>
+    <style jsx>{``}</style>
+  </Box>
+);
+
+export default Home;

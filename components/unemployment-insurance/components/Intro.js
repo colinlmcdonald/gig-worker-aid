@@ -10,7 +10,7 @@ const Intro = () => {
     const nextRoute = findNextRoute("/employment-status");
     dispatch({ type: NEXT_ROUTE, payload: nextRoute });
   }, [dispatch]);
-  return <Heading>Welcome!</Heading>;
+  return <Heading></Heading>;
 };
 
 export default Intro;

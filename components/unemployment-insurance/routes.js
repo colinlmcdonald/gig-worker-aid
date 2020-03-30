@@ -1,26 +1,6 @@
 const sup = [
   {
     route: "/",
-    component: "Intro",
-    title:
-      "The goal of this questionnaire is to help you better understand what unemployment options are best for you."
-  },
-  {
-    route: "/select-state",
-    component: "SelectState",
-    title: "What state will you be applying for assistance from?",
-    changeIsRequired: true,
-    sidebar: {
-      title: "Selecing A State",
-      content: "Some information about how to apply for a state.",
-      link: {
-        text: "More Information",
-        href: "/info/selecting-a-state"
-      }
-    }
-  },
-  {
-    route: "/employment-status",
     component: "ButtonSelection",
     title: "What kind of employee are you (pre-COVID outbreak)?",
     dispatchKey: "employmentStatus",
