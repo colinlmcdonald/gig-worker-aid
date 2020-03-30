@@ -1,6 +1,6 @@
 <svg width="600" height="530" viewBox="0 0 600 530" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="600" height="530" fill="#F2F2F2"/>
-<rect width="600" height="530" fill="#F7F7F7"/>
+<rect width="600" height="530" fill="white"/>
 <rect x="102" y="18" width="396" height="346" rx="8" fill="#F2F2F2"/>
 <path d="M102 26C102 21.5817 105.582 18 110 18H490C494.418 18 498 21.5817 498 26V45H102V26Z" fill="#C5CFD6"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M115 36C117.209 36 119 34.2091 119 32C119 29.7909 117.209 28 115 28C112.791 28 111 29.7909 111 32C111 34.2091 112.791 36 115 36Z" fill="#F2F2F2"/>

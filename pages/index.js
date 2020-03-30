@@ -1,9 +1,13 @@
 import Head from "next/head";
 import { Text, Heading, Flex, Box, Button, Link } from "rebass";
 import App from "../components/App";
-import IconGirl from "../assets/form-girl.svg";
+import IconGirl from "../assets/covergirl.svg";
 import Paper from "../assets/paper.svg";
 import Mento from "../assets/mentoo-logo.svg";
+import Bulb from "../assets/idea.svg";
+import Check from "../assets/check.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
 
 const Home = () => (
   <Box minHeight="100vh">
@@ -13,7 +17,7 @@ const Home = () => (
     </Head>
 
     <App>
-      <Box mx={[4, 4, 5]} marginTop={[4, 2, 1]} marginBottom={5}>
+      <Box mx={[4, 4, 5]} marginTop={[4, 2, 1]} marginBottom={5} p={[2, 5, 5]}>
         <Flex
           flexDirection="column"
           alignItems="flex-start"
@@ -52,7 +56,7 @@ const Home = () => (
               </Box>
               <Box width={[1 / 2]} flex="1" className="icon-girl-container">
                 <Flex justifyContent="center">
-                  <Box width={3 / 4}>
+                  <Box width={3 / 4} marginTop={[5]}>
                     <IconGirl className="icon-girl" />
                   </Box>
                 </Flex>
@@ -60,8 +64,8 @@ const Home = () => (
             </Flex>
             <Box marginTop={[3, 4, 5]} mx={[0, 2, 3]} fontSize={[2, 2, 3]}>
               <Flex justifyContent="space-between" flexWrap="wrap" p={1}>
-                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
-                  <Box width={[1, 6 / 7, 4 / 5]}>
+                <Box width={[1, 1, 1 / 3]} p={1} marginTop={[3, 3, 0]}>
+                  <Box width={[1, 1, 4 / 5]}>
                     <Flex justifyContent="space-between" alignItems="center">
                       <Paper
                         flex="1"
@@ -81,10 +85,10 @@ const Home = () => (
                     </Flex>
                   </Box>
                 </Box>
-                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
-                  <Box width={[1, 6 / 7, 3 / 4]}>
+                <Box width={[1, 1, 1 / 3]} p={1} marginTop={[3, 3, 0]}>
+                  <Box width={[1, 1, 3 / 4]}>
                     <Flex justifyContent="space-between" alignItems="center">
-                      <Paper
+                      <Bulb
                         flex="1"
                         height="75px"
                         width="75px"
@@ -102,14 +106,17 @@ const Home = () => (
                     </Flex>
                   </Box>
                 </Box>
-                <Box width={[1, 1 / 3, 1 / 3]} p={1} marginTop={[3, 0, 0]}>
-                  <Box width={[1, 6 / 7, 3 / 4]}>
-                    <Flex justifyContent="space-between">
-                      <Paper
+                <Box width={[1, 1, 1 / 3]} p={1} marginTop={[3, 3, 0]}>
+                  <Box width={[1, 1, 3 / 4]}>
+                    <Flex justifyContent="space-between" alignItems="center">
+                      <Check
                         flex="1"
                         height="75px"
                         width="75px"
-                        style={{ alignSelf: "flex-start" }}
+                        style={{
+                          alignSelf: "flex-start",
+                          transform: "scale(1.3)"
+                        }}
                       />
                       <Flex marginLeft={3} flex="1" flexDirection="column ">
                         <Text fontWeight="bold">Learn More</Text>
@@ -184,7 +191,7 @@ const Home = () => (
             </Box>
           </Box>
           <Flex justifyContent="center">
-            <Box marginTop={5} width={[1, 3 / 4, 3 / 4]} fontSize={[2, 3]}>
+            <Box marginTop={5} width={[1, 3 / 4, 3 / 4]} fontSize={[1, 2, 3]}>
               <footer>
                 <Text sx={{ fontStyle: "italic", textAlign: "center" }}>
                   This guide reflects our knowledge, beliefs, and suggestions as
@@ -232,7 +239,11 @@ const Home = () => (
         }
       }
     `}</style>
-    <style jsx>{``}</style>
+    <style jsx>{`
+      .checkSquare path {
+        fill: #256be1;
+      }
+    `}</style>
   </Box>
 );
 
